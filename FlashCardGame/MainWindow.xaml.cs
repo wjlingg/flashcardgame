@@ -68,8 +68,19 @@ namespace FlashCardGame
             isStart = true; // reset state to start
             startButton.IsEnabled = false; // disable the startButton as long as timer is running
             enterButton.IsEnabled = true; // enable the enterButton as long as timer is running
+            optCombo.IsEnabled = false; // disable the choosing of 4 operations
             timer.Start(); // start the timer
             GenerateQuestions(); // generate a random new set of question
+        }
+
+        // not sure why the association of keyboard keys is not working
+        private void EnterButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                isStart = false; // if enter button is pressed, state is no longer at start hence set isStart to false
+                GenerateQuestions(); // generate a random new set of question
+            }
         }
 
         private void GenerateQuestions()
@@ -137,6 +148,7 @@ namespace FlashCardGame
                 {
                     pastResult.Add(result); // add result to list (list will have two results)
                     int userInput = int.Parse(userInputText.Text); // get user input as integer
+                    userInputText.Text = ""; // erase user input 
                     if (pastResult[0] == userInput) // check if user input is the same as the first result in the list 
                     {
                         scoreText.Text = (int.Parse(scoreText.Text) + 1).ToString(); // same result increment score by 1
@@ -161,6 +173,7 @@ namespace FlashCardGame
             MsgBoxEndGame(); // dialog box to tell user it is end of game
             startButton.IsEnabled = true; // enable the start button
             enterButton.IsEnabled = false; // disable the enter button
+            optCombo.IsEnabled = true; // enable the choosing of 4 operations
         }
 
         private void MsgBoxEndGame() // dialog box for end of game

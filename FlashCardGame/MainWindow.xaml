@@ -59,7 +59,8 @@
 
         <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40"/>
         <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40"/>
-        <Button x:Name ="enterButton" Grid.Column="5" Grid.Row="5" FontSize="24" Click="EnterButton_Click">
+
+        <Button x:Name ="enterButton" Grid.Column="5" Grid.Row="5" FontSize="24" Click="EnterButton_Click" KeyDown="EnterButton_KeyDown">
             Enter
         </Button>
 
