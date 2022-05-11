@@ -13,7 +13,7 @@
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="105" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -24,6 +24,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
@@ -56,8 +57,17 @@
 
         <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40"/>
         <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40"/>
-        <Button Grid.Column="5" Grid.Row="5" FontSize="24">
+        <Button x:Name ="enterButton" Grid.Column="5" Grid.Row="5" FontSize="24" Click="EnterButton_Click">
             Enter
         </Button>
+
+        <TextBlock Grid.Column="1" Grid.Row="7" FontSize="24">
+            Number of questions left
+        </TextBlock>
+        <TextBox x:Name ="remainingText" Grid.Column="1" Grid.Row="8" Height="40"/>
+        <Button x:Name ="startButton" Grid.Column="3" Grid.Row="8" FontSize="24" Click="StartButton_Click">
+            Start
+        </Button>
+        <!--<TextBlock Text="{Binding ResultText}" Style="{StaticResource styleSimpleText}" Grid.Column="3" Grid.Row="7" FontSize="24" />-->
     </Grid>
 </Window>
