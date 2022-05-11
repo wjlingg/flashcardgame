@@ -45,6 +45,7 @@ namespace FlashCardGame
             if (timerText.Text == "00:00:00")
             {
                 timer.Stop();
+                EndGame();
             }
         }
 
@@ -52,9 +53,32 @@ namespace FlashCardGame
         {
             //Reset all information to initial state
 
+            _time = TimeSpan.FromSeconds(10);
             timerText.Text = _time.ToString("c");
             startButton.IsEnabled = false;
             timer.Start();
+            GenerateQuestions();
+        }
+
+        private void GenerateQuestions()
+        {
+
+        }
+
+        private void EndGame()
+        {
+            MsgBox();
+            timerText.Text = _time.ToString("c"); ;
+            startButton.IsEnabled = true;
+        }
+
+        private void MsgBox()
+        {
+            string messageBoxText = "Time is up";
+            string caption = "Game Over";
+            MessageBoxButton button = MessageBoxButton.OK;
+
+            MessageBox.Show(messageBoxText, caption, button);
         }
     }
 }
