@@ -4,9 +4,60 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlashCardGame"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" FontSize="24" FontFamily="Arial" FontWeight="SemiBold"
+        Title="Flash Card Game" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" /> 
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
         
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="24">
+            Score
+        </TextBlock>
+        <TextBlock Grid.Column="3" Grid.Row="1" FontSize="24">
+            Operations
+        </TextBlock>
+        <TextBlock Grid.Column="5" Grid.Row="1" FontSize="24">
+            Timer
+        </TextBlock>
+
+        <TextBox x:Name ="scoreText" Grid.Column="1" Grid.Row="2" Height="40"/>
+        <ComboBox Grid.Column="3" Grid.Row="2" Height="40">
+            <ComboBoxItem>Addition</ComboBoxItem>
+            <ComboBoxItem>Subtraction</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Multiplication</ComboBoxItem>
+            <ComboBoxItem>Division</ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name ="timerText" Grid.Column="5" Grid.Row="2" Height="40"/>
+        
+        <TextBlock Grid.Column="1" Grid.Row="4" FontSize="24">
+            Questions
+        </TextBlock>
+        <TextBlock Grid.Column="3" Grid.Row="4" FontSize="24">
+            User Input
+        </TextBlock>
+
+        <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40"/>
+        <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40"/>
+        <Button Grid.Column="5" Grid.Row="5" FontSize="24">
+            Enter
+        </Button>
     </Grid>
 </Window>
