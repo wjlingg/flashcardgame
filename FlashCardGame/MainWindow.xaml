@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FlashCardGame"
         mc:Ignorable="d" FontSize="24" FontFamily="Arial" FontWeight="SemiBold"
         Title="Flash Card Game" Height="450" Width="800">
-    <Grid>
+    <Grid PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="350" />
@@ -60,7 +60,7 @@
         <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40"/>
         <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40"/>
 
-        <Button x:Name ="enterButton" Grid.Column="5" Grid.Row="5" FontSize="24" Click="EnterButton_Click" KeyDown="EnterButton_KeyDown">
+        <Button x:Name ="enterButton" Grid.Column="5" Grid.Row="5" FontSize="24" Click="EnterButton_Click">
             Enter
         </Button>
 

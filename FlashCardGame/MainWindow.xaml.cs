@@ -73,13 +73,13 @@ namespace FlashCardGame
             GenerateQuestions(); // generate a random new set of question
         }
 
-        // not sure why the association of keyboard keys is not working
-        private void EnterButton_KeyDown(object sender, KeyEventArgs e)
+        // Grid itself handles the KeyDown event, and sets the flag to stop the event from bubbling further
+        // So need to handle the PreviewKeyDown event instead. This gives us a chance to respond to the key down event before the Grid does.
+        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                isStart = false; // if enter button is pressed, state is no longer at start hence set isStart to false
-                GenerateQuestions(); // generate a random new set of question
+                EnterButton_Click(sender, e);
             }
         }
 
