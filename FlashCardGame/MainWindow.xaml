@@ -26,6 +26,8 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         
@@ -40,7 +42,7 @@
         </TextBlock>
 
         <TextBox x:Name ="scoreText" Grid.Column="1" Grid.Row="2" Height="40"/>
-        <ComboBox Grid.Column="3" Grid.Row="2" Height="40">
+        <ComboBox x:Name ="optCombo" Grid.Column="3" Grid.Row="2" Height="40">
             <ComboBoxItem>Addition</ComboBoxItem>
             <ComboBoxItem>Subtraction</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Multiplication</ComboBoxItem>
@@ -68,6 +70,9 @@
         <Button x:Name ="startButton" Grid.Column="3" Grid.Row="8" FontSize="24" Click="StartButton_Click">
             Start
         </Button>
+        <TextBlock Grid.Column="1" Grid.Row="10" FontSize="20" Grid.ColumnSpan="3">
+            Please round off to nearest 2 decimal places for division
+        </TextBlock>
         <!--<TextBlock Text="{Binding ResultText}" Style="{StaticResource styleSimpleText}" Grid.Column="3" Grid.Row="7" FontSize="24" />-->
     </Grid>
 </Window>
