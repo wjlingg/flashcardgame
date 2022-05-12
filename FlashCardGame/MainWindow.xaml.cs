@@ -65,6 +65,8 @@ namespace FlashCardGame
             {
                 timer.Stop(); // stop the timer
                 EndGame(); // end of game
+                MsgBoxEndGame(); // dialog box to tell user it is end of game due to time is up
+                MsgBoxSuccess(); // dialog box to show percentage of score
             }
         }
 
@@ -82,6 +84,8 @@ namespace FlashCardGame
             enterButton.IsEnabled = true; // enable the enterButton as long as timer is running
             optCombo.IsEnabled = false; // disable the choosing of 4 operations
             array = new int[numCols]; // reset array to zeros
+            pastResult = new List<double>(); // reset past result to zeros
+            rnd = new Random(); // reset random
             timer.Start(); // start the timer
             GenerateQuestions(); // generate a random new set of question
         }
@@ -92,60 +96,82 @@ namespace FlashCardGame
         {
             if (e.Key == Key.Return)
             {
-                EnterButton_Click(sender, e);
+                if (!startButton.IsEnabled) // if the start button is not enabled then allow enter key to be pressed
+                {
+                    EnterButton_Click(sender, e);
+                }
             }
         }
 
         private void GenerateQuestions() // Generate questions for user and verify user input
         {
-            List<int> listRand = RandGenerate();
-            int num1 = listRand[0]; // generate the first number
-            int num2 = listRand[1]; // generate the second number
+            int[] listRand = RandGenerate().ToArray(); // generate the 2 random numbers
 
-            string chosenItems = optCombo.SelectionBoxItem.ToString(); // check which of the 4 operations are chosen
+            int num1 = listRand[0]; // get the first number
+            int num2 = listRand[1]; // get the second number
 
-            if (chosenItems == "Addition") // if addition does addition
+            if (!array.Contains(0)) // check if all questions have been answered
             {
-                AddFunc(num1, num2);
-            }
-            else if (chosenItems == "Subtraction") // if subtraction does subtraction
+                timer.Stop(); // stop the timer
+                EndGame();
+                MsgBoxSuccess(); // dialog box to show percentage score
+                extraText.Text = "All questions have been answered";
+            } else
             {
-                SubtractFunc(num1, num2);
-            }
-            else if (chosenItems == "Multiplication") // if multiplication does multiplication
-            {
-                MultiplyFunc(num1, num2);
-            }
-            else // if division does division
-            {
-                DivideFunc(num1, num2);
+                string chosenItems = optCombo.SelectionBoxItem.ToString(); // check which of the 4 operations are chosen
+
+                if (chosenItems == "Addition") // if addition does addition
+                {
+                    AddFunc(num1, num2);
+                }
+                else if (chosenItems == "Subtraction") // if subtraction does subtraction
+                {
+                    SubtractFunc(num1, num2);
+                }
+                else if (chosenItems == "Multiplication") // if multiplication does multiplication
+                {
+                    MultiplyFunc(num1, num2);
+                }
+                else // if division does division
+                {
+                    DivideFunc(num1, num2);
+                }
             }
         }
 
-        private List<int> RandGenerate() // generate and return 2 random numbers
+        private int[] RandGenerate() // generate and return 2 random numbers
         {
-            List<int> retList = new List<int>();
+            int[] retList = new int[2]; // return list for the 2 random numbers
+            bool isNotSelected = true; // boolean to track if 2 random numbers have been selected
+            int i = 0; // starting search index to find first occurrence of zero in array
 
-            for(int i = 0; i < numCols; i++) // loop through all the 169 questions
+            while(isNotSelected && i < numCols && array.Contains(0))
             {
-                if (array[i] == 0) // if the question is not yet being selected
+                int index = Array.IndexOf(array, 0, i);
+
+                if (index == -1) // if no index is being chosen
                 {
-                    // select the question with a probability of 1 / (169-i)
-                    // as we loop through the for loop, higher the probability of choosing a random number same as i
-                    // technique adopted is called selection sampling
-                    // this is to ensure that all 169 pairs are guaranteed to be shown eventually
-                    int getRandNum = rnd.Next(i, numCols); // get a random number between i inclusive and 169 exclusive
-                    if (getRandNum == i) // if question is selected
-                    {
-                        array[i] = 1; // mark the question as selected
-                        remainingText.Text = (int.Parse(remainingText.Text) - 1).ToString();
-                        retList.Add(subTrackCombi[i][0]); // add the first selected number
-                        retList.Add(subTrackCombi[i][1]); // add the second selected number
-                        break; // break out of the for loop
-                    } else
-                    {
-                        continue;
-                    }
+                    i = 0; // reset the starting search index
+                    index = Array.IndexOf(array, 0, i); // get the index of the first occurrence of zero in array
+                }
+
+                // select the question with a probability of 1 / (169-i)
+                // as we loop through the for loop, higher the probability of choosing a random number same as i
+                // technique adopted is called selection sampling
+                // this is to ensure that all 169 pairs are guaranteed to be shown eventually
+
+                int getRandNum = rnd.Next(index, numCols); // get a random number between index inclusive and 169 exclusive
+                if (getRandNum == index) // if question is selected
+                {
+                    array[index] = 1; // mark the question as selected
+                    remainingText.Text = (int.Parse(remainingText.Text) - 1).ToString(); // decrement the number of question left
+                    retList[0] = subTrackCombi[index][0]; // add the first selected number
+                    retList[1] = subTrackCombi[index][1]; // add the second selected number
+                    isNotSelected = false; // set to false because 2 random numbers have been selected
+                }
+                else // if no question is being selected
+                {
+                    i = index+1; // increment the starting search index to find the next occurrence of zero in array
                 }
             }
             return retList;
@@ -198,16 +224,20 @@ namespace FlashCardGame
                 if (userInputText.Text.ToString() != "") // if user input is not null
                 {
                     pastResult.Add(result); // add result to list (list will have two results)
-                    double userInput = double.Parse(userInputText.Text); // get user input as integer
+
+                    if (double.TryParse(userInputText.Text.ToString(), out _)) // check if user input is a valid number
+                    {
+                        double userInput = double.Parse(userInputText.Text); // get user input as integer
+                        if (pastResult[0] == userInput) // check if user input is the same as the first result in the list 
+                        {
+                            scoreText.Text = (int.Parse(scoreText.Text) + 1).ToString(); // same result increment score by 1
+                        }
+                        else
+                        {
+                            scoreText.Text = (int.Parse(scoreText.Text) - 1).ToString(); // different result decrement score by 1
+                        }
+                    }
                     userInputText.Text = ""; // erase user input 
-                    if (pastResult[0] == userInput) // check if user input is the same as the first result in the list 
-                    {
-                        scoreText.Text = (int.Parse(scoreText.Text) + 1).ToString(); // same result increment score by 1
-                    }
-                    else
-                    {
-                        scoreText.Text = (int.Parse(scoreText.Text) - 1).ToString(); // different result decrement score by 1
-                    }
                     pastResult.RemoveAt(0); // remove the first result from list
                 }
             }
@@ -215,9 +245,8 @@ namespace FlashCardGame
 
         private void EndGame() // end of game
         {
-            MsgBoxEndGame(); // dialog box to tell user it is end of game
-            startButton.IsEnabled = true; // enable the start button
             enterButton.IsEnabled = false; // disable the enter button
+            startButton.IsEnabled = true; // enable the start button
             optCombo.IsEnabled = true; // enable the choosing of 4 operations
         }
 
@@ -225,6 +254,32 @@ namespace FlashCardGame
         {
             string messageBoxText = "Time is up"; // set dialog box text message
             string caption = "Game Over"; // set dialog box title
+            MessageBoxButton button = MessageBoxButton.OK; // ok button
+
+            MessageBox.Show(messageBoxText, caption, button); // show the dialog box
+        }
+
+        private void MsgBoxEmptyList() // dialog box for empty list
+        {
+            string messageBoxText = "List is empty"; // set dialog box text message
+            string caption = "Error"; // set dialog box title
+            MessageBoxButton button = MessageBoxButton.OK; // ok button
+
+            MessageBox.Show(messageBoxText, caption, button); // show the dialog box
+        }
+
+        private void MsgBoxSuccess() // dialog box for having answered all questions
+        {
+            string messageBoxText;
+            if (int.Parse(scoreText.Text) < 0)
+            {
+                messageBoxText = "Sorry your score is " + int.Parse(scoreText.Text) + ". Better luck next round!"; // set dialog box text message
+            } else
+            {
+                messageBoxText = "Congratulation you have scored " + Math.Round(100.0 * double.Parse(scoreText.Text) / numCols, 2) + "%"; // set dialog box text message
+            }
+                
+            string caption = "Success"; // set dialog box title
             MessageBoxButton button = MessageBoxButton.OK; // ok button
 
             MessageBox.Show(messageBoxText, caption, button); // show the dialog box

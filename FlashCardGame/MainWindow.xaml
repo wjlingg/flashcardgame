@@ -26,7 +26,8 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
@@ -71,9 +72,10 @@
         <Button x:Name ="startButton" Grid.Column="3" Grid.Row="8" FontSize="24" Click="StartButton_Click">
             Start
         </Button>
-        <TextBlock Grid.Column="1" Grid.Row="10" FontSize="20" Grid.ColumnSpan="3">
+        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="10" FontSize="20" Grid.ColumnSpan="3">
+        </TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="11" FontSize="20" Grid.ColumnSpan="3">
             Please round off to nearest 2 decimal places for division
         </TextBlock>
-        <!--<TextBlock Text="{Binding ResultText}" Style="{StaticResource styleSimpleText}" Grid.Column="3" Grid.Row="7" FontSize="24" />-->
     </Grid>
 </Window>
