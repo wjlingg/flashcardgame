@@ -25,8 +25,10 @@ namespace FlashCardGame
         TimeSpan _time; // time duration
 
         Random rnd = new Random(); // for random number generator
-        int minInt = 0; // minimum value for random number generator
-        int maxInt = 12; // maximum value for random number generator
+        static int maxInt = 12; // maximum value for random number generator
+        static int numCols = (maxInt+1)*(maxInt+1); // number of columns for 1d array
+        int[] array = new int[numCols]; // to track number combinations
+        List<List<int>> subTrackCombi = new List<List<int>>(); // all possible combi, 169 of them
 
         bool isStart = false; // boolean to check if state is at start
         List<double> pastResult = new List<double>(); // to store the previous result and current result
@@ -37,6 +39,15 @@ namespace FlashCardGame
             timer.Interval = new TimeSpan(0, 0, 1); // timer will "tick" every 1 second
             timer.Tick += Timer_Count; // Process time every 1 second
             _time = TimeSpan.FromSeconds(60); // Set time to 60 seconds
+
+            // this is to generate [0,0], [0,1], ... , [12,11], [12,12]
+            for (int i = 0; i < maxInt+1; i++)
+            {
+                for (int j = 0; j < maxInt+1; j++)
+                {
+                    subTrackCombi.Add(new List<int> { i, j });
+                }
+            }
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e) // event called when enter buttion is clicked
@@ -65,10 +76,12 @@ namespace FlashCardGame
             timerText.Text = _time.ToString("c"); // reset time to current 60 seconds
             scoreText.Text = "0"; // reset score to zero
             userInputText.Text = ""; // reset user input to null
+            remainingText.Text = "169"; // reset the remaining number of questions to 169 because 13x13 of them
             isStart = true; // reset state to start
             startButton.IsEnabled = false; // disable the startButton as long as timer is running
             enterButton.IsEnabled = true; // enable the enterButton as long as timer is running
             optCombo.IsEnabled = false; // disable the choosing of 4 operations
+            array = new int[numCols]; // reset array to zeros
             timer.Start(); // start the timer
             GenerateQuestions(); // generate a random new set of question
         }
@@ -85,8 +98,9 @@ namespace FlashCardGame
 
         private void GenerateQuestions() // Generate questions for user and verify user input
         {
-            int num1 = RandGenerate()[0]; // generate the first number
-            int num2 = RandGenerate()[1]; // generate the second number
+            List<int> listRand = RandGenerate();
+            int num1 = listRand[0]; // generate the first number
+            int num2 = listRand[1]; // generate the second number
 
             string chosenItems = optCombo.SelectionBoxItem.ToString(); // check which of the 4 operations are chosen
 
@@ -110,14 +124,30 @@ namespace FlashCardGame
 
         private List<int> RandGenerate() // generate and return 2 random numbers
         {
-            var retList = new List<int>();
-            // need to +1 because max is exclusive
-            int num1 = rnd.Next(minInt, maxInt + 1);  // generates a number between 0 and 12 inclusive
-            int num2 = rnd.Next(minInt, maxInt + 1);  // generates a number between 0 and 12 inclusive
+            List<int> retList = new List<int>();
 
-            retList.Add(num1);
-            retList.Add(num2);
-
+            for(int i = 0; i < numCols; i++) // loop through all the 169 questions
+            {
+                if (array[i] == 0) // if the question is not yet being selected
+                {
+                    // select the question with a probability of 1 / (169-i)
+                    // as we loop through the for loop, higher the probability of choosing a random number same as i
+                    // technique adopted is called selection sampling
+                    // this is to ensure that all 169 pairs are guaranteed to be shown eventually
+                    int getRandNum = rnd.Next(i, numCols); // get a random number between i inclusive and 169 exclusive
+                    if (getRandNum == i) // if question is selected
+                    {
+                        array[i] = 1; // mark the question as selected
+                        remainingText.Text = (int.Parse(remainingText.Text) - 1).ToString();
+                        retList.Add(subTrackCombi[i][0]); // add the first selected number
+                        retList.Add(subTrackCombi[i][1]); // add the second selected number
+                        break; // break out of the for loop
+                    } else
+                    {
+                        continue;
+                    }
+                }
+            }
             return retList;
         }
 
