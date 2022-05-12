@@ -29,7 +29,7 @@ namespace FlashCardGame
         int maxInt = 12; // maximum value for random number generator
 
         bool isStart = false; // boolean to check if state is at start
-        List<int> pastResult = new List<int>(); // to store the previous result and current result
+        List<double> pastResult = new List<double>(); // to store the previous result and current result
 
         public MainWindow()
         {
@@ -39,13 +39,13 @@ namespace FlashCardGame
             _time = TimeSpan.FromSeconds(60); // Set time to 60 seconds
         }
 
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        private void EnterButton_Click(object sender, RoutedEventArgs e) // event called when enter buttion is clicked
         {
             isStart = false; // if enter button is clicked, state is no longer at start hence set isStart to false
             GenerateQuestions(); // generate a random new set of question
         }
 
-        private void Timer_Count(object sender, object e)
+        private void Timer_Count(object sender, object e) // processing of time
         {
             _time = _time.Add(TimeSpan.FromSeconds(-1)); // decrement the time by every second
             timerText.Text = _time.ToString("c"); // set timer text to current time
@@ -57,7 +57,7 @@ namespace FlashCardGame
             }
         }
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private void StartButton_Click(object sender, RoutedEventArgs e) // event called when start button is called
         {
             //Reset all information to initial state
 
@@ -83,7 +83,7 @@ namespace FlashCardGame
             }
         }
 
-        private void GenerateQuestions()
+        private void GenerateQuestions() // Generate questions for user and verify user input
         {
             int num1 = RandGenerate()[0]; // generate the first number
             int num2 = RandGenerate()[1]; // generate the second number
@@ -125,19 +125,40 @@ namespace FlashCardGame
         {
             int result = num1 + num2; // add the numbers
             questionText.Text = num1.ToString() + " + " + num2.ToString(); // set the question
+            VerifyUserInput((double)result);
         }
 
         private void SubtractFunc(int num1, int num2) // subtraction function
         {
             int result = num1 - num2; // subtract the numbers
             questionText.Text = num1.ToString() + " - " + num2.ToString(); // set the question
+            VerifyUserInput((double)result);
         }
 
         private void MultiplyFunc(int num1, int num2) // multiplication function
         {
             int result = num1 * num2; // multiply the numbers
             questionText.Text = num1.ToString() + " x " + num2.ToString(); // set the question
+            VerifyUserInput((double)result);
+        }
 
+        private void DivideFunc(int num1, int num2) // division function
+        {
+            double result;
+            if (num2 == 0) // to avoid division by zero
+            {
+                result = Math.Round((double)num2 / num1, 2); // divide the numbers
+                questionText.Text = num2.ToString() + " / " + num1.ToString(); // set the question
+            } else
+            {
+                result = Math.Round((double)num1 / num2, 2); // divide the numbers
+                questionText.Text = num1.ToString() + " / " + num2.ToString(); // set the question
+            }
+            VerifyUserInput(result);
+        }
+
+        private void VerifyUserInput(double result) // check if the user input is same as the answer to the generated question
+        {
             if (isStart) // this is necessary because when start button is clicked, result is tabulated but dont have any user input
             {
                 pastResult.Add(result); // add result to list (list will have one result)
@@ -147,7 +168,7 @@ namespace FlashCardGame
                 if (userInputText.Text.ToString() != "") // if user input is not null
                 {
                     pastResult.Add(result); // add result to list (list will have two results)
-                    int userInput = int.Parse(userInputText.Text); // get user input as integer
+                    double userInput = double.Parse(userInputText.Text); // get user input as integer
                     userInputText.Text = ""; // erase user input 
                     if (pastResult[0] == userInput) // check if user input is the same as the first result in the list 
                     {
@@ -160,12 +181,6 @@ namespace FlashCardGame
                     pastResult.RemoveAt(0); // remove the first result from list
                 }
             }
-        }
-
-        private void DivideFunc(int num1, int num2) // division function
-        {
-            double result = Math.Round((double)num1 / num2, 2); // divide the numbers
-            questionText.Text = num1.ToString() + " / " + num2.ToString(); // set the question
         }
 
         private void EndGame() // end of game
