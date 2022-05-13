@@ -39,6 +39,7 @@ namespace FlashCardGame
             timer.Interval = new TimeSpan(0, 0, 1); // timer will "tick" every 1 second
             timer.Tick += Timer_Count; // Process time every 1 second
             _time = TimeSpan.FromSeconds(60); // Set time to 60 seconds
+            enterButton.IsEnabled = false; // disable the enterButton when initializing
 
             // this is to generate [0,0], [0,1], ... , [12,11], [12,12]
             for (int i = 0; i < maxInt+1; i++)

@@ -137,7 +137,7 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name ="enterButton" Content="Enter" Grid.Column="5" Grid.Row="11">
+        <Button x:Name ="enterButton" Content="Enter" Grid.Column="5" Grid.Row="11" Click="EnterButton_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
                     <Style.Triggers>
