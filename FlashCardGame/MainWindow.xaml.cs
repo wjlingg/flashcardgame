@@ -283,11 +283,16 @@ namespace FlashCardGame
             string messageBoxText;
             if (int.Parse(scoreText.Text) < 0)
             {
-                messageBoxText = "Sorry your score is " + int.Parse(scoreText.Text) + ". Better luck next round!"; // set dialog box text message
+                messageBoxText = "Sorry your score is " + int.Parse(scoreText.Text) + "\nBetter luck next round!"; // set dialog box text message
             } else
             {
                 double percentScore = Math.Round(100.0 * double.Parse(scoreText.Text) / numCols, 2); // (score / total number of questions)
-                double accuracy = Math.Round(100.0 * double.Parse(correctText.Text) / (double.Parse(correctText.Text) + double.Parse(wrongText.Text)), 2); // (number of correct answers / total answered questions)
+                double totalQuestion = double.Parse(correctText.Text) + double.Parse(wrongText.Text); // total number of questions answered
+                double accuracy = 0;
+                if (totalQuestion != 0)
+                {
+                    accuracy = Math.Round(100.0 * double.Parse(correctText.Text) / totalQuestion, 2); // (number of correct answers / total answered questions)
+                }
                 messageBoxText = "Congratulations!!\nPercentage score: " + percentScore + "%\n" + "Accuracy: " + accuracy + "%"; // set dialog box text message
             }
                 
