@@ -6,7 +6,7 @@
 
 A program for practicing 4 arithmetic operations of addition, subtraction, multiplication, and division.
 
-Steps taken during implementation:
+### Steps taken during implementation:
 
 1) Added base layout for the user interface
 2) Added logic for countdown timer
@@ -14,7 +14,7 @@ Steps taken during implementation:
 4) Added logic for generating question and scoring
 5) Improved UI
 
-Features:
+### Features:
 
 1) ***Score*** : one point awarded for correct answers, one point deducted for incorrect answers
 2) ***Operations*** : choose between 4 arithmetic operations
@@ -27,7 +27,7 @@ Features:
 9) ***Start button*** : start the game, timer will start counting down
 10) ***Enter button*** : submit answer
 
-How to play:
+### How to play:
 
 1) Select the type of operations from the drop down list: addition, subtraction, multiplication, division (default "multiplication" is selected)
 2) Click "Start" button to start the game, timer will immediately counts down
@@ -36,7 +36,7 @@ How to play:
 5) Game will stop once all questions in question bank have been answered or once the timer runs out of time
 6) Dialog box will show your percentage score and accruacy once game ends
 
-Future work:
+### Future work:
 
 1) Able to generate question randomly among the 4 arithmetic operations (single type in each question)
 2) Able to generate question randomly among the 4 arithmetic operations (multiple types in each question)
