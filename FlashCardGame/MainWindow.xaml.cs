@@ -54,6 +54,18 @@ namespace FlashCardGame
         private void EnterButton_Click(object sender, RoutedEventArgs e) // event called when enter buttion is clicked
         {
             isStart = false; // if enter button is clicked, state is no longer at start hence set isStart to false
+            if (enterButton.Foreground == Brushes.Black) // if enter button is clicked, set the colour of the button from Black to Magenta
+            {
+                enterButton.Foreground = Brushes.Magenta;
+            }
+            if (userInputText.Text == "") // if enter button is clicked, if user input is null, set the colour of the button from Magenta to Green
+            {
+                if (enterButton.Foreground == Brushes.Magenta) 
+                {
+                    enterButton.Foreground = Brushes.Green;
+                }
+            }
+            userInputText.Focus(); // set cursor to user input textbox automatically after enter button is clicked
             GenerateQuestions(); // generate a random new set of question
         }
 
@@ -98,16 +110,23 @@ namespace FlashCardGame
         // So need to handle the PreviewKeyDown event instead. This gives us a chance to respond to the key down event before the Grid does.
         private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (enterButton.Foreground == Brushes.Gray) // if enter button is released, reset the colour of the button
+            if (enterButton.Foreground == Brushes.Black) // if any of the keyboard button is pressed, set the colour of the button from Black to Magenta
             {
-                enterButton.Foreground = Brushes.Black;
+                enterButton.Foreground = Brushes.Magenta;
             }
             if (e.Key == Key.Return)
             {
                 if (!startButton.IsEnabled) // if the start button is not enabled then allow enter key to be pressed
                 {
-                    enterButton.Foreground = Brushes.Gray; // set colour of enter button to Gray when enter button is pressed
-                    EnterButton_Click(sender, e);
+                    if (userInputText.Text == "") // if enter button is pressed, if user input is null, set the colour of the button from Green to Magenta
+                    {
+                        if (enterButton.Foreground == Brushes.Green)
+                        {
+                            enterButton.Foreground = Brushes.Magenta;
+                        }
+                    }
+                    isStart = false; // if enter button is clicked, state is no longer at start hence set isStart to false
+                    GenerateQuestions(); // generate a random new set of question
                 }
             }
         }
@@ -249,6 +268,7 @@ namespace FlashCardGame
                         }
                     }
                     userInputText.Text = ""; // erase user input 
+                    enterButton.Foreground = Brushes.Black;
                     pastResult.RemoveAt(0); // remove the first result from list
                 }
             }
