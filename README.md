@@ -8,9 +8,9 @@ A program for practicing the 4 arithmetic operations of addition, subtraction, m
 
 ### Steps taken during implementation:
 
-1) Added base layout for the user interface
+1) Added base layout for user interface
 2) Added logic for countdown timer
-3) Added logic for the 4 arithmetic operations
+3) Added logic for all 4 arithmetic operations
 4) Added logic for generating question and scoring
 5) Improved UI
 
@@ -34,7 +34,7 @@ A program for practicing the 4 arithmetic operations of addition, subtraction, m
 3) Enter your answer to the generated questions
 4) Click "Enter" button to submit answer or press "Enter" key on keyboard to submit answer
 5) Game will stop once all questions in question bank have been answered or once the timer runs out of time
-6) Dialog box will show your percentage score and accruacy once game ends
+6) Dialog box will show your percentage score and accuracy once game ends
 
 ### Future work:
 
