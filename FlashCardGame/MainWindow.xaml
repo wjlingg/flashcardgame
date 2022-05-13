@@ -56,12 +56,15 @@
             <ColumnDefinition Width="20*" />
             <ColumnDefinition Width="300*" />
             <ColumnDefinition Width="20*" />
-            <ColumnDefinition Width="250*" />
+            <ColumnDefinition Width="300*" />
             <ColumnDefinition Width="20*" />
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="20*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="50*" />
             <RowDefinition Height="20*" />
             <RowDefinition Height="30*" />
             <RowDefinition Height="50*" />
@@ -96,35 +99,33 @@
         </ComboBox>
         <TextBox x:Name ="timerText" Grid.Column="5" Grid.Row="2" Height="40" Style="{StaticResource TextBox}"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBlock}">
+        <TextBlock Grid.Column="1" Grid.Row="4" Foreground ="Lime" Style="{StaticResource TextBlock}">
+            Answered correctly
+        </TextBlock>
+        <TextBlock Grid.Column="3" Grid.Row="4" Foreground ="Red" Style="{StaticResource TextBlock}">
+            Answered wrongly
+        </TextBlock>
+
+        <TextBox x:Name ="correctText" Grid.Column="1" Grid.Row="5" Height="40" Style="{StaticResource TextBox}"/>
+        <TextBox x:Name ="wrongText" Grid.Column="3" Grid.Row="5" Height="40" Style="{StaticResource TextBox}"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBlock}">
             Questions
         </TextBlock>
-        <TextBlock Grid.Column="3" Grid.Row="4" Style="{StaticResource TextBlock}">
+        <TextBlock Grid.Column="3" Grid.Row="7" Style="{StaticResource TextBlock}">
             User Input
         </TextBlock>
 
-        <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40" Style="{StaticResource TextBox}"/>
-        <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40" Style="{StaticResource TextBox}"/>
+        <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="8" Height="40" Style="{StaticResource TextBox}"/>
+        <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="8" Height="40" Style="{StaticResource TextBox}"/>
 
-        <Button x:Name ="enterButton" Content="Enter" Grid.Column="5" Grid.Row="5">
-            <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
-                    <Style.Triggers>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="Magenta" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-
-        <TextBlock Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBlock}">
+        <TextBlock Grid.Column="1" Grid.Row="10" Style="{StaticResource TextBlock}">
             Number of questions left
         </TextBlock>
         
-        <TextBox x:Name ="remainingText" Grid.Column="1" Grid.Row="8" Height="40" Style="{StaticResource TextBox}"/>
+        <TextBox x:Name ="remainingText" Grid.Column="1" Grid.Row="11" Height="40" Style="{StaticResource TextBox}"/>
         
-        <Button x:Name ="startButton" Content="Start" Grid.Column="3" Grid.Row="8" Click="StartButton_Click">
+        <Button x:Name ="startButton" Content="Start" Grid.Column="3" Grid.Row="11" Click="StartButton_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
                     <Style.Triggers>
@@ -136,11 +137,23 @@
             </Button.Style>
         </Button>
 
-        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3" FontSize ="18" Style="{StaticResource TextBlock}">
+        <Button x:Name ="enterButton" Content="Enter" Grid.Column="5" Grid.Row="11">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="Magenta" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="13" FontSize ="18" Style="{StaticResource TextBlock}">
             Are you smarter than a 5th grader
         </TextBlock>
-        
-        <TextBlock Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" FontSize ="20" Style="{StaticResource TextBlock}">
+
+        <TextBlock Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="3" FontSize ="20" Style="{StaticResource TextBlock}">
             Please round off to nearest 2 decimal places for division
         </TextBlock>
     </Grid>

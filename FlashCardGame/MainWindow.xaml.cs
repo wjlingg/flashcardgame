@@ -77,7 +77,10 @@ namespace FlashCardGame
             _time = TimeSpan.FromSeconds(60); // reset time to 60 seconds
             timerText.Text = _time.ToString("c"); // reset time to current 60 seconds
             scoreText.Text = "0"; // reset score to zero
+            correctText.Text = "0"; // reset score to zero
+            wrongText.Text = "0"; // reset score to zero
             userInputText.Text = ""; // reset user input to null
+            userInputText.Focus(); // set cursor to user input textbox automatically once game starts
             remainingText.Text = "169"; // reset the remaining number of questions to 169 because 13x13 of them
             isStart = true; // reset state to start
             startButton.IsEnabled = false; // disable the startButton as long as timer is running
@@ -236,10 +239,12 @@ namespace FlashCardGame
                         if (pastResult[0] == userInput) // check if user input is the same as the first result in the list 
                         {
                             scoreText.Text = (int.Parse(scoreText.Text) + 1).ToString(); // same result increment score by 1
+                            correctText.Text = (int.Parse(correctText.Text) + 1).ToString();
                         }
                         else
                         {
                             scoreText.Text = (int.Parse(scoreText.Text) - 1).ToString(); // different result decrement score by 1
+                            wrongText.Text = (int.Parse(wrongText.Text) + 1).ToString();
                         }
                     }
                     userInputText.Text = ""; // erase user input 
@@ -281,7 +286,9 @@ namespace FlashCardGame
                 messageBoxText = "Sorry your score is " + int.Parse(scoreText.Text) + ". Better luck next round!"; // set dialog box text message
             } else
             {
-                messageBoxText = "Congratulation you have scored " + Math.Round(100.0 * double.Parse(scoreText.Text) / numCols, 2) + "%"; // set dialog box text message
+                double percentScore = Math.Round(100.0 * double.Parse(scoreText.Text) / numCols, 2); // (score / total number of questions)
+                double accuracy = Math.Round(100.0 * double.Parse(correctText.Text) / (double.Parse(correctText.Text) + double.Parse(wrongText.Text)), 2); // (number of correct answers / total answered questions)
+                messageBoxText = "Congratulations!!\nPercentage score: " + percentScore + "%\n" + "Accuracy: " + accuracy + "%"; // set dialog box text message
             }
                 
             string caption = "Success"; // set dialog box title
