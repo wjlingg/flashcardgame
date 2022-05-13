@@ -16,16 +16,16 @@ Steps taken during implementation:
 
 Features:
 
-1) Score: one point awarded for correct answers, one point deducted for incorrect answers
-2) Operations: choose between 4 arithmetic operations
-3) Timer: one minute countdown of play
-4) Answered correctly: number of questions answered correctly
-5) Answered wrongly: number of questions answered wrongly
-6) Questions: display random-generated equations of the selected operation type
-7) User input: takes in user input
-8) Number of questions left: display the number of questions left in question bank
-9) Start button: start the game, timer will start counting down
-10) Enter button: submit answer
+1) ***Score*** : one point awarded for correct answers, one point deducted for incorrect answers
+2) ***Operations*** : choose between 4 arithmetic operations
+3) ***Timer*** : one minute countdown of play
+4) ***Answered correctly*** : number of questions answered correctly
+5) ***Answered wrongly *** : number of questions answered wrongly
+6) ***Questions*** : display random-generated equations of the selected operation type
+7) ***User input*** : takes in user input
+8) ***Number of questions left*** : display the number of questions left in question bank
+9) ***Start button*** : start the game, timer will start counting down
+10) ***Enter button*** : submit answer
 
 How to play:
 
