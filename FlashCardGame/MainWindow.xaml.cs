@@ -94,10 +94,15 @@ namespace FlashCardGame
         // So need to handle the PreviewKeyDown event instead. This gives us a chance to respond to the key down event before the Grid does.
         private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (enterButton.Foreground == Brushes.Gray) // if enter button is released, reset the colour of the button
+            {
+                enterButton.Foreground = Brushes.Black;
+            }
             if (e.Key == Key.Return)
             {
                 if (!startButton.IsEnabled) // if the start button is not enabled then allow enter key to be pressed
                 {
+                    enterButton.Foreground = Brushes.Gray; // set colour of enter button to Gray when enter button is pressed
                     EnterButton_Click(sender, e);
                 }
             }

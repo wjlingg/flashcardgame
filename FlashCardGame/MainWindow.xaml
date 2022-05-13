@@ -4,8 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlashCardGame"
-        mc:Ignorable="d" FontSize="24" FontFamily="Arial" FontWeight="SemiBold"
+        mc:Ignorable="d"
+        Foreground="GreenYellow"
+        Background="#36393F"
         Title="Flash Card Game" Height="450" Width="800">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="pressed" Color="Red" />
+        <Style x:Key="MyButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderBrush" Value="Aqua"/>
+            <Setter Property="BorderThickness" Value="0 0 0 3"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="BorderBrush" Value="{DynamicResource pressed}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="GreenYellow"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style TargetType="TextBox" x:Key="TextBox">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style TargetType="ComboBox" x:Key="ComboBox">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Window.Resources>
+
     <Grid PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -31,50 +72,70 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="24">
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBlock}">
             Score
         </TextBlock>
-        <TextBlock Grid.Column="3" Grid.Row="1" FontSize="24">
+        <TextBlock Grid.Column="3" Grid.Row="1" Style="{StaticResource TextBlock}">
             Operations
         </TextBlock>
-        <TextBlock Grid.Column="5" Grid.Row="1" FontSize="24">
+        <TextBlock Grid.Column="5" Grid.Row="1" Style="{StaticResource TextBlock}">
             Timer
         </TextBlock>
 
-        <TextBox x:Name ="scoreText" Grid.Column="1" Grid.Row="2" Height="40"/>
-        <ComboBox x:Name ="optCombo" Grid.Column="3" Grid.Row="2" Height="40">
+        <TextBox x:Name ="scoreText" Grid.Column="1" Grid.Row="2" Height="40" Style="{StaticResource TextBox}"/>
+        <ComboBox x:Name ="optCombo" Grid.Column="3" Grid.Row="2" Height="40" Style="{StaticResource ComboBox}">
             <ComboBoxItem>Addition</ComboBoxItem>
             <ComboBoxItem>Subtraction</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Multiplication</ComboBoxItem>
             <ComboBoxItem>Division</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name ="timerText" Grid.Column="5" Grid.Row="2" Height="40"/>
-        
-        <TextBlock Grid.Column="1" Grid.Row="4" FontSize="24">
+        <TextBox x:Name ="timerText" Grid.Column="5" Grid.Row="2" Height="40" Style="{StaticResource TextBox}"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBlock}">
             Questions
         </TextBlock>
-        <TextBlock Grid.Column="3" Grid.Row="4" FontSize="24">
+        <TextBlock Grid.Column="3" Grid.Row="4" Style="{StaticResource TextBlock}">
             User Input
         </TextBlock>
 
-        <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40"/>
-        <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40"/>
+        <TextBox x:Name ="questionText" Grid.Column="1" Grid.Row="5" Height="40" Style="{StaticResource TextBox}"/>
+        <TextBox x:Name ="userInputText" Grid.Column="3" Grid.Row="5" Height="40" Style="{StaticResource TextBox}"/>
 
-        <Button x:Name ="enterButton" Grid.Column="5" Grid.Row="5" FontSize="24" Click="EnterButton_Click">
-            Enter
+        <Button x:Name ="enterButton" Content="Enter" Grid.Column="5" Grid.Row="5">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="Magenta" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
 
-        <TextBlock Grid.Column="1" Grid.Row="7" FontSize="24">
+        <TextBlock Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBlock}">
             Number of questions left
         </TextBlock>
-        <TextBox x:Name ="remainingText" Grid.Column="1" Grid.Row="8" Height="40"/>
-        <Button x:Name ="startButton" Grid.Column="3" Grid.Row="8" FontSize="24" Click="StartButton_Click">
-            Start
+        
+        <TextBox x:Name ="remainingText" Grid.Column="1" Grid.Row="8" Height="40" Style="{StaticResource TextBox}"/>
+        
+        <Button x:Name ="startButton" Content="Start" Grid.Column="3" Grid.Row="8" Click="StartButton_Click">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="Magenta" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
-        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="10" FontSize="20" Grid.ColumnSpan="3">
+        
+        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3" Style="{StaticResource TextBlock}">
         </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="11" FontSize="20" Grid.ColumnSpan="3">
+        
+        <TextBlock Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" FontSize ="20" Style="{StaticResource TextBlock}">
             Please round off to nearest 2 decimal places for division
         </TextBlock>
     </Grid>
