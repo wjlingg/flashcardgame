@@ -2,9 +2,9 @@
 
 ## Are you smarter than a 5th grader?
 
-![alt text](https://github.com/wjlingg/flashcardgame/blob/master/image.png?raw=true)
+A program for practicing the 4 arithmetic operations of addition, subtraction, multiplication, and division.
 
-A program for practicing 4 arithmetic operations of addition, subtraction, multiplication, and division.
+![alt text](https://github.com/wjlingg/flashcardgame/blob/master/image.png?raw=true)
 
 ### Steps taken during implementation:
 
