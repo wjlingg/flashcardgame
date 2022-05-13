@@ -22,7 +22,7 @@ A program for practicing the 4 arithmetic operations of addition, subtraction, m
 4) ***Answered correctly*** : number of questions answered correctly
 5) ***Answered wrongly*** : number of questions answered wrongly
 6) ***Questions*** : display random-generated equations of the selected operation type
-7) ***User input*** : takes in user input
+7) ***User Input*** : takes in user input
 8) ***Number of questions left*** : display the number of questions left in question bank
 9) ***Start button*** : start the game, timer will start counting down
 10) ***Enter button*** : submit answer
