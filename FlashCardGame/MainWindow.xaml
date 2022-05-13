@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Foreground="GreenYellow"
         Background="#36393F"
-        Title="Flash Card Game" Height="450" Width="800">
+        Title="Flash Card Game"
+        MinHeight="450" MinWidth="800"
+        SizeToContent="WidthAndHeight" 
+        ResizeMode="CanResizeWithGrip">
+
 
     <Window.Resources>
         <SolidColorBrush x:Key="pressed" Color="Red" />
@@ -49,28 +53,28 @@
 
     <Grid PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="350" />
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="105" />
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="300*" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="250*" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="20*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" /> 
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="70*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="20*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBlock}">
@@ -131,8 +135,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        
-        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3" Style="{StaticResource TextBlock}">
+
+        <TextBlock x:Name ="extraText" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3" FontSize ="18" Style="{StaticResource TextBlock}">
+            Are you smarter than a 5th grader
         </TextBlock>
         
         <TextBlock Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" FontSize ="20" Style="{StaticResource TextBlock}">
